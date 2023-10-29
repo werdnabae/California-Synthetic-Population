@@ -1,0 +1,38 @@
+target,geography,seed_table,importance,control_field,expression
+num_hh,TRACT,households,1.00E+09,num_hh,(households.WGTP > 0) & (households.WGTP < np.inf)
+children_yes,TRACT,households,10000,children_yes,households.NOC > 0
+children_no,TRACT,households,10000,children_no,households.NOC == 0
+income0,TRACT,households,10000,income0,households.HINCP < 15000
+income1,TRACT,households,10000,income1,(households.HINCP >= 15000) & (households.HINCP < 25000)
+income2,TRACT,households,10000,income2,(households.HINCP >= 25000) & (households.HINCP < 50000) 
+income3,TRACT,households,10000,income3,(households.HINCP >= 50000) & (households.HINCP < 75000) 
+income4,TRACT,households,10000,income4,(households.HINCP >= 75000) & (households.HINCP < 100000) 
+income5,TRACT,households,10000,income5,(households.HINCP >= 100000) & (households.HINCP < 150000) 
+income6,TRACT,households,10000,income6,(households.HINCP >= 150000) & (households.HINCP < 200000) 
+income7,TRACT,households,1000000,income7,households.HINCP >= 200000
+HHSIZE1,TRACT,households,1000000,size1,households.NP == 1
+HHSIZE2,TRACT,households,1000000,size2,households.NP == 2
+HHSIZE3,TRACT,households,1000000,size3,households.NP == 3
+HHSIZE4,TRACT,households,1000000,size4,households.NP == 4
+HHSIZE5,TRACT,households,1000000,size5,households.NP == 5
+HHSIZE6,TRACT,households,1000000,size6,households.NP == 6
+HHSIZE7,TRACT,households,1000000,size7,households.NP >= 7
+hh_own,TRACT,households,10000,hh_own,(households.TEN == 1)  | (households.TEN == 2) 
+hh_rent,TRACT,households,10000,hh_rent,(households.TEN == 3)  | (households.TEN == 4) 
+work0,TRACT,households,10000,work0,households.NUM_WORKERS == 0
+work1,TRACT,households,10000,work1,households.NUM_WORKERS == 1
+work2,TRACT,households,10000,work2,households.NUM_WORKERS == 2
+work3,TRACT,households,10000,work3,households.NUM_WORKERS >= 3
+hh_asian,TRACT,households,10000,asian,households.HEAD_RACE == 6
+hh_notasian,TRACT,households,10000,not_asian,households.HEAD_RACE != 6
+num_persons,TRACT,persons,1000000,num_persons,(persons.PWGTP > 0) & (persons.PWGTP <  np.inf)
+age_lt19,TRACT,persons,100,age_lt19,persons.AGEP <= 19
+age_20-35,TRACT,persons,100,age_20-35,(persons.AGEP > 19) & (persons.AGEP <= 35)
+age_35-60,TRACT,persons,100,age_35-60,(persons.AGEP > 35) & (persons.AGEP <= 60)
+age_60+,TRACT,persons,100,age_60+,persons.AGEP > 60
+race_white,TRACT,persons,100,race_white,persons.RAC1P == 1
+race_black,TRACT,persons,100,race_black,persons.RAC1P == 2
+race_asian,TRACT,persons,100,race_asian,persons.RAC1P == 6
+race_other,TRACT,persons,100,race_other,(persons.RAC1P != 1) & (persons.RAC1P != 2) & (persons.RAC1P != 6)
+sex_male,TRACT,persons,100,sex_male,persons.SEX == 1
+sex_female,TRACT,persons,100,sex_female,persons.SEX == 2
