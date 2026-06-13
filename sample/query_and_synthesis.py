@@ -45,7 +45,9 @@ if args.counties == 'bay_area':
 elif args.counties == 'all_CA':
     counties = ["{:03d}".format(num) for num in range(1, 116) if num % 2 != 0]
 else:
-    counties = args.counties
+    # A single county FIPS code (e.g. "013") was passed. Wrap it in a list so
+    # the loop below iterates over the county code, not its characters.
+    counties = [args.counties]
 
 # In 2019, the 'RELP' variable was renamed to 'RELSHIPP'
 if year >= 2019 and 'RELP' in p_vars:

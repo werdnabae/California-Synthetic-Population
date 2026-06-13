@@ -81,9 +81,22 @@ Email: LJin@lbl.gov
 
 Population synthesis is implemented using:
 
-- Python
+- Python 3.8+
 - PopulationSim
 - ActivitySim ecosystem tools
+
+The data-query and post-processing scripts in `sample/` additionally depend on
+`pandas`, `numpy`, `census`, `requests`, `us`, `ruamel.yaml`, and `openpyxl`.
+These are listed in [`requirements.txt`](requirements.txt) and can be installed
+with:
+
+    pip install -r requirements.txt
+
+PopulationSim itself (and the ActivitySim packages it depends on) should be
+installed following the upstream instructions, as it is not distributed on PyPI
+in the same way:
+
+https://activitysim.github.io/populationsim/
 
 PopulationSim documentation:  
 https://activitysim.github.io/populationsim/
@@ -92,9 +105,8 @@ https://activitysim.github.io/populationsim/
 
 ## Reproducing the Synthetic Population
 
-The repository contains configuration files and workflows needed to run the synthesis pipeline.
-
-Typical workflow:
+The repository contains configuration files and workflows needed to run the
+synthesis pipeline. The end-to-end workflow is:
 
 1. Prepare demographic marginal distributions and control totals
 2. Configure PopulationSim synthesis settings
@@ -102,7 +114,35 @@ Typical workflow:
 4. Validate marginal consistency and demographic distributions
 5. Export synthetic household and person records
 
-Detailed run instructions can be provided upon request.
+The `sample/` directory contains the scripts that automate this workflow:
+
+| Script | Purpose |
+| --- | --- |
+| `county_query.py` | Downloads ACS marginals and PUMS seed data from the Census API and builds the control totals, seed tables, and geographic crosswalk. |
+| `download_data.py` | CLI wrapper that only downloads/prepares the input data for a state, year, and set of counties. |
+| `query_and_synthesis.py` | CLI wrapper that prepares input data, updates the PopulationSim config, runs the synthesis, and collects outputs. |
+| `run_populationsim.py` | Thin entry point that runs PopulationSim with the given config directories. |
+| `generate_summary.py` | Aggregates the per-county summary files into validation statistics (MAPE, MdAPE, aggregate differences). |
+
+### Example: run a single county
+
+From inside the `sample/` directory:
+
+    # Download input data only (state 06 = California, county 013 = Contra Costa)
+    python download_data.py --state 06 --year 2017 --counties 013
+
+    # Or download data, run synthesis, and summarize in one step
+    python query_and_synthesis.py --state 06 --year 2017 --counties 013
+
+The `--counties` argument accepts a single county FIPS code (e.g. `013`), the
+preset `bay_area`, or the preset `all_CA` (all 58 California counties).
+
+### Example configuration
+
+The `example_calm/` directory contains a complete, ready-to-run PopulationSim
+configuration (single-process under `configs/` and multiprocess under
+`configs_mp/`) together with small sample input data under `data/`, so you can
+exercise the pipeline without first downloading from the Census API.
 
 ---
 

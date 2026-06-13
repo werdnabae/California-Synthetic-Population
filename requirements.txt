@@ -1,0 +1,25 @@
+# Python dependencies for the California Synthetic Population pipeline.
+#
+# These cover the data-query and post-processing scripts in sample/ and the
+# raw_data/ notebook. The population synthesis itself is run with PopulationSim
+# (which pulls in the ActivitySim ecosystem); install it per the upstream
+# instructions at https://activitysim.github.io/populationsim/.
+
+# Data handling
+pandas
+numpy
+
+# Census / ACS / PUMS data access
+census            # Census API client (imported as `census`)
+requests          # PUMS API HTTP requests
+us                # US state metadata (used in raw_data notebook)
+
+# Config editing (preserves key order in settings.yaml)
+ruamel.yaml
+
+# Excel summary output (engine used by pandas.ExcelWriter)
+openpyxl
+
+# Population synthesis framework (see upstream install instructions)
+# populationsim
+# activitysim
