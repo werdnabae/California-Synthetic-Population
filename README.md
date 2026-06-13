@@ -98,6 +98,14 @@ in the same way:
 
 https://activitysim.github.io/populationsim/
 
+### Census API key
+
+The Census-querying scripts read your Census API key from the `CENSUS_API_KEY`
+environment variable (a free key is available at
+https://api.census.gov/data/key_signup.html):
+
+    export CENSUS_API_KEY=your_key_here
+
 PopulationSim documentation:  
 https://activitysim.github.io/populationsim/
 

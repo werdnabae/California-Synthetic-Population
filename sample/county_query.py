@@ -211,8 +211,15 @@ def query_acs(state: str, county: str, year: int):
     logging.info('Downloading ACS Marginals for: State = ' +
                  state + ', County = ' + county + ', Year = ' + str(year))
 
-    # this a key needed to access te Census API. You can use this same one
-    c = Census("285e70bec59918991430e98163a4cda2802b4f01")
+    # Census API key, read from the CENSUS_API_KEY environment variable.
+    # Get a free key at https://api.census.gov/data/key_signup.html
+    census_api_key = os.environ.get("CENSUS_API_KEY")
+    if not census_api_key:
+        raise RuntimeError(
+            "Set the CENSUS_API_KEY environment variable to your Census API "
+            "key (free at https://api.census.gov/data/key_signup.html)."
+        )
+    c = Census(census_api_key)
 
     logging.info('Downloading raw household marginals...')
     # Extract the columns we need for households
